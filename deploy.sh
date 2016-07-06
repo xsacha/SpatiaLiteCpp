@@ -31,7 +31,7 @@ find $REPO_WORKDIR -iname ".*" -type f -delete || exit 1
 
 # Build documentation
 ./build.sh -a
-cp -r docs/* $REPO_WORKDIR/
+cp -r docs/. $REPO_WORKDIR/
 
 # Commit and push updates
 pushd $REPO_WORKDIR
