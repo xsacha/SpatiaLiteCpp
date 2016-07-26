@@ -2,16 +2,11 @@
 # ==================================================
 # Set header files
 # --------------------------------------------------
-
 SET(spatialitecpp_hdr 
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/Auxiliary.h"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/Blob.h"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/Buffer.hpp"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/Checksum.h"
-    "${spatialitecpp_dir}/include/SpatiaLiteCpp/Converter.h"
-    "${spatialitecpp_dir}/include/SpatiaLiteCpp/Dbf.h"
-    "${spatialitecpp_dir}/include/SpatiaLiteCpp/DbfField.h"
-    "${spatialitecpp_dir}/include/SpatiaLiteCpp/DbfList.h"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/DynamicLine.h"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/ExifTagList.h"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/GeometryCollection.h"
@@ -20,7 +15,6 @@ SET(spatialitecpp_hdr
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/Point.h"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/Polygon.h"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/Ring.h"
-    "${spatialitecpp_dir}/include/SpatiaLiteCpp/Shapefile.h"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/SpatialDatabase.h"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/SpatiaLiteCpp.h"
     "${spatialitecpp_dir}/include/SpatiaLiteCpp/SpatiaLiteCppAbi.h"
@@ -38,10 +32,6 @@ SET(spatialitecpp_src
     "${spatialitecpp_dir}/src/Auxiliary.cpp"
     "${spatialitecpp_dir}/src/Blob.cpp"
     "${spatialitecpp_dir}/src/Checksum.cpp"
-    "${spatialitecpp_dir}/src/Converter.cpp"
-    "${spatialitecpp_dir}/src/Dbf.cpp"
-    "${spatialitecpp_dir}/src/DbfField.cpp"
-    "${spatialitecpp_dir}/src/DbfList.cpp"
     "${spatialitecpp_dir}/src/DynamicLine.cpp"
     "${spatialitecpp_dir}/src/ExifTagList.cpp"
     "${spatialitecpp_dir}/src/GeometryCollection.cpp"
@@ -51,12 +41,30 @@ SET(spatialitecpp_src
     "${spatialitecpp_dir}/src/Polygon.cpp"
     "${spatialitecpp_dir}/src/Ring.cpp"
     "${spatialitecpp_dir}/src/SpatialDatabase.cpp"
-    "${spatialitecpp_dir}/src/Shapefile.cpp"
     "${spatialitecpp_dir}/src/VectorLayersList.cpp"
     "${spatialitecpp_dir}/src/WfsCatalog.cpp"
     "${spatialitecpp_dir}/src/WfsSchema.cpp"
     "${spatialitecpp_dir}/src/XmlBlob.cpp"
     "${spatialitecpp_dir}/src/XmlDocument.cpp")
+
+# ==================================================
+# Set iconv specific files
+# --------------------------------------------------
+
+IF(${SPATIALITECPP_USE_ICONV})
+    LIST(APPEND spatialitecpp_hdr
+        "${spatialitecpp_dir}/include/SpatiaLiteCpp/Converter.h"
+        "${spatialitecpp_dir}/include/SpatiaLiteCpp/Dbf.h"
+        "${spatialitecpp_dir}/include/SpatiaLiteCpp/DbfField.h"
+        "${spatialitecpp_dir}/include/SpatiaLiteCpp/DbfList.h"
+        "${spatialitecpp_dir}/include/SpatiaLiteCpp/Shapefile.h")
+    LIST(APPEND spatialitecpp_src
+        "${spatialitecpp_dir}/src/Converter.cpp"
+        "${spatialitecpp_dir}/src/Dbf.cpp"
+        "${spatialitecpp_dir}/src/DbfField.cpp"
+        "${spatialitecpp_dir}/src/DbfList.cpp"
+        "${spatialitecpp_dir}/src/Shapefile.cpp")
+ENDIF()
 
 # ==================================================
 # Set documentation files
