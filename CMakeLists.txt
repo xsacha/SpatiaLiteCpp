@@ -28,7 +28,7 @@ PROJECT(SpatiaLiteCpp)
 # Set SpatiaLiteCpp directory
 # ----------------------------------------------------------------------
 
-SET(spatialitecpp_dir "${CMAKE_SOURCE_DIR}")
+SET(spatialitecpp_dir "${PROJECT_SOURCE_DIR}")
 SET(spatialitecpp_dir_inc "${spatialitecpp_dir}/include")
 
 # ======================================================================
@@ -44,6 +44,7 @@ IF (NOT sharedptr_dir_inc)
 ENDIF()
 
 # Set SpatiaLite directory and libraries
+# Allow env variable or top-level project to override
 SET(spatialite_dir_inc $ENV{spatialite_dir_inc})
 IF (NOT spatialite_dir_inc)
     IF(WIN32)
@@ -60,12 +61,14 @@ IF (NOT spatialite_dir_lib)
         SET(spatialite_dir_lib "/usr/lib/x86_64-linux-gnu")
     ENDIF()
 ENDIF()
-IF(WIN32)
-    SET(spatialite_lib "${spatialite_dir_lib}/spatialite_i.lib")
-    SET(sqlite3_lib "${spatialite_dir_lib}/sqlite3_i.lib")
-ELSE()
-    SET(spatialite_lib "${spatialite_dir_lib}/libspatialite.so")
-    SET(sqlite3_lib "${spatialite_dir_lib}/libsqlite3.so")
+IF (NOT spatialite_lib AND NOT sqlite3_lib)
+    IF(WIN32)
+        SET(spatialite_lib "${spatialite_dir_lib}/spatialite_i.lib")
+        SET(sqlite3_lib "${spatialite_dir_lib}/sqlite3_i.lib")
+    ELSE()
+        SET(spatialite_lib "${spatialite_dir_lib}/libspatialite.so")
+        SET(sqlite3_lib "${spatialite_dir_lib}/libsqlite3.so")
+    ENDIF()
 ENDIF()
 
 # Set SQLiteCpp directory and libraries
@@ -78,7 +81,7 @@ ENDIF()
 # Define installation directory for all projects
 # ----------------------------------------------------------------------
 
-SET(install_dir ".")
+SET(install_dir ${spatialitecpp_dir}/".")
 
 # ======================================================================
 # Define library linking and flags for testing
@@ -95,18 +98,18 @@ IF (${SPATIALITECPP_BUILD_TEST})
             SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
         ENDIF()
     ENDIF()
-    ADD_SUBDIRECTORY(test)
+    ADD_SUBDIRECTORY(${spatialitecpp_dir}/test)
 ENDIF()
 
 # ======================================================================
 # Define project sub-directories
 # ----------------------------------------------------------------------
 
-ADD_SUBDIRECTORY(ext/SQLiteCppLocal)
-ADD_SUBDIRECTORY(src)
+ADD_SUBDIRECTORY(${spatialitecpp_dir}/ext/SQLiteCppLocal)
+ADD_SUBDIRECTORY(${spatialitecpp_dir}/src)
 
 IF(${SPATIALITECPP_BUILD_EXAMPLES})
-    ADD_SUBDIRECTORY(examples)
+    ADD_SUBDIRECTORY(${spatialitecpp_dir}/examples)
 ENDIF()
 
 # ======================================================================
