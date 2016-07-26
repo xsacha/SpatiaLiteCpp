@@ -216,7 +216,7 @@ namespace SpatiaLite
         file.close();
 
         return new XmlDocument((XmlDocumentType)blob,
-                               size,
+                               (int)size,
                                XmlDocument::cleanDelete);
 
     }
