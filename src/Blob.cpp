@@ -52,7 +52,7 @@ namespace SpatiaLite
         if (!geometry) throw std::runtime_error("Invalid geometry!");
         char * blob = gaiaToHexWkb(geometry);
         if (!blob) throw std::runtime_error("Failed to convert to HEX WKB!");
-        int size = std::strlen(blob);
+        int size = (int)std::strlen(blob);
         return new SpatiaLite::Blob((BlobType)blob, size);
     }
 
