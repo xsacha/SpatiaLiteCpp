@@ -117,7 +117,11 @@ SET_TARGET_PROPERTIES(SpatiaLiteCpp PROPERTIES LINKER_LANGUAGE CXX)
 # Install library and header files
 # --------------------------------------------------
 
-SET(install_dir_lib "${install_dir}/lib")
+IF (NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
+    SET(install_dir_lib "${install_dir}/lib")
+ELSE()
+    SET(install_dir_lib "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+ENDIF()
 
 IF(${SPATIALITECPP_BUILD_DYNAMIC})
     INSTALL(TARGETS SpatiaLiteCpp
