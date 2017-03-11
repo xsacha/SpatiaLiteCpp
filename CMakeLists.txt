@@ -80,7 +80,7 @@ ENDIF()
 # Define installation directory for all projects
 # ----------------------------------------------------------------------
 
-SET(install_dir ${spatialitecpp_dir}/".")
+SET(install_dir ".")
 
 # ======================================================================
 # Define library linking and flags for testing
